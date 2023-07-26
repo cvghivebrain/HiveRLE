@@ -27,7 +27,7 @@ function FindUnique(A: integer): integer;
 begin
   result := 0;
   // Increment until repeated byte is found, the file ends or the max count is reached.
-  while (filearray[A+result] <> filearray[A+result+1]) and (A+result+1 < fs) and (result < 127) do Inc(result);
+  while (filearray[A+result] <> filearray[A+result+1]) and (A+result < fs) and (result < 127) do Inc(result);
 end;
 
 begin
@@ -56,6 +56,7 @@ begin
       begin
       outarray[outpos] := 256-repcount; // Store count as negative byte.
       outarray[outpos+1] := filearray[inpos]; // Store value.
+      //WriteLn(IntToStr(filearray[inpos])+' repeated '+IntToStr(repcount)+' times.');
       outpos := outpos+2;
       inpos := inpos+repcount; // Skip to end of repeating sequence.
       end
@@ -64,6 +65,7 @@ begin
       unicount := FindUnique(inpos); // Get length of unique byte sequence.
       outarray[outpos] := unicount; // Store count.
       Move(filearray[inpos],outarray[outpos+1],unicount); // Copy whole sequence.
+      //WriteLn('Sequence of '+IntToStr(unicount)+' unique bytes.');
       outpos := outpos+unicount+1;
       inpos := inpos+unicount; // Skip to end of sequence.
       end;
