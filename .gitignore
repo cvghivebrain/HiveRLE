@@ -3,3 +3,4 @@ __history/*
 HiveRLE.identcache
 asm/errors.txt
 asm/HiveDec.lst
+*.bat
